@@ -15,14 +15,14 @@ class ApiServices {
     dio = Dio(options);
   }
 
-  Future<Characters> getAllCharacters() async {
+  Future<CharactersModel> getAllCharacters() async {
     try {
       Response response = await dio.get('character');
       print(response.data.toString());
-      return Characters.fromJson(response.data);
+      return CharactersModel.fromJson(response.data);
     } catch (e) {
       print(e.toString());
-      return Characters();
+      return CharactersModel();
     }
   }
 }

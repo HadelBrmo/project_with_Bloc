@@ -7,7 +7,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final AppRouter router;
-   MyApp({super.key, required this.router});
+   const MyApp({super.key, required this.router});
 
   @override
   Widget build(BuildContext context) {

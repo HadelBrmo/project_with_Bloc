@@ -25,7 +25,7 @@ class AppRouter{
         );
         break;
       case charactersDetails:
-        return MaterialPageRoute(builder: (_)=>Characterdetails());
+        return MaterialPageRoute(builder: (_)=>CharacterDetails());
     }
     return null;
   }
