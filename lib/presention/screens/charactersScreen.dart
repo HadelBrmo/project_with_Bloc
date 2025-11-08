@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:learn_bloc/bussiess_logic/cubit/character_cubit.dart';
 import 'package:learn_bloc/constant/colors.dart';
-
 import '../../data/models/character.dart';
 import '../widgets/characterItem.dart';
 
@@ -15,6 +14,78 @@ class CharactersScreen extends StatefulWidget {
 
 class _CharactersScreenState extends State<CharactersScreen> {
   late List<Results> allCharacters;
+  late List<Results> searchedCharacters;
+  bool isSearching=false;
+  TextEditingController searchController=TextEditingController();
+
+  Widget buildSearchField(){
+    return TextFormField(
+      controller: searchController,
+      cursorColor: MyColors.myGrey,
+      decoration: InputDecoration(
+        hintText: "Find Characters ...",
+        border: InputBorder.none,
+        hintStyle: TextStyle(
+          color: MyColors.myGrey,
+          fontSize: 18,
+        ),
+      ),
+      style:TextStyle(
+        color: MyColors.myGrey,
+        fontSize: 18,
+      ),
+      onChanged: (searchedCharacters){
+        addSearchedFOrItemsToSearchedList(searchedCharacters);
+      },
+    );
+  }
+
+  void addSearchedFOrItemsToSearchedList(String searchedCharacter) {
+    searchedCharacters = allCharacters
+        .where((character) =>
+        character.name!.toLowerCase().startsWith(searchedCharacter))
+        .toList();
+    setState(() {
+
+    });
+  }
+
+  List<Widget> buildAppbarAction(){
+    if(isSearching){
+      return [
+        IconButton(onPressed: (){
+          clearData();
+          Navigator.pop(context);
+        }, icon: Icon(Icons.clear,color: MyColors.myGrey,))];
+    }
+    else{
+      return[
+        IconButton(onPressed: startSearch,
+        icon: Icon(Icons.search,color: MyColors.myGrey,))
+      ];
+    }
+  }
+
+  void startSearch(){
+   ModalRoute.of(context)!.addLocalHistoryEntry(LocalHistoryEntry(onRemove: startStoping
+   ));
+  setState(() {
+    isSearching=true;
+  });
+  }
+
+  void startStoping(){
+   clearData();
+   setState(() {
+     isSearching=false;
+   });
+  }
+
+  void clearData(){
+  setState(() {
+    searchController.clear();
+  });
+  }
 
   Widget buildBlockWidget(){
     return BlocBuilder<CharactersCubit,CharacterState>(builder:(context,state){
@@ -23,7 +94,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
         return buildLoadedListWidget();
       }
       else{
-        return Text("Error");
+        return Center(child: CircularProgressIndicator(color: MyColors.myYellow,));
       }
     });
   }
@@ -52,9 +123,10 @@ class _CharactersScreenState extends State<CharactersScreen> {
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
       // padding: EdgeInsets.all(8),
-      itemCount: allCharacters.length,
+      itemCount:searchController.text.isEmpty? allCharacters.length:searchedCharacters.length,
       itemBuilder: (context, index) {
-        return CharacterItem(character: allCharacters[index],);
+        return CharacterItem(character:searchController.text.isEmpty? allCharacters[index]:
+        searchedCharacters[index]  );
       },
     );
   }
@@ -69,22 +141,24 @@ class _CharactersScreenState extends State<CharactersScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-     toolbarHeight: 50,
+     toolbarHeight: 60,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(
             top:  Radius.circular( 20),
           ),
         ),
-        title: Text(
-          "Characters",
-        style: TextStyle(
-            color: MyColors.myGrey,
-          fontSize: 20
-        ),
+        title: (isSearching)?buildSearchField() : Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text(
+            "Characters",
+          style: TextStyle(
+              color: MyColors.myGrey,
+            fontSize: 20
+          ),
+          ),
         ),
         backgroundColor: MyColors.myYellow,
-
-        centerTitle: true,
+        actions: buildAppbarAction(),
       ),
       body: buildBlockWidget(),
     );
