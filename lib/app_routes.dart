@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:learn_bloc/data/models/character.dart';
 import 'package:learn_bloc/data/web_services/apiServices.dart';
 import 'package:learn_bloc/presention/screens/characterDetails.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,8 @@ class AppRouter{
         );
         break;
       case charactersDetails:
-        return MaterialPageRoute(builder: (_)=>CharacterDetails());
+        final character = setting.arguments as Results;
+        return MaterialPageRoute(builder: (_)=>CharacterDetails(character: character,));
     }
     return null;
   }
