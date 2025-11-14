@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_bloc/constant/colors.dart';
 import 'package:learn_bloc/data/models/character.dart';
@@ -99,6 +100,28 @@ class CharacterDetails extends StatelessWidget {
                       buildDivider(260),
                       characterInfo("Created : ",character.created! ),
                       buildDivider(290),
+                      Center(
+                        child: DefaultTextStyle(
+                          textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: MyColors.myWhite,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 7,
+                                  color: MyColors.myYellow,
+                                  offset: Offset(0, 0),
+                                )
+                              ],
+                            ),
+                            child: AnimatedTextKit(
+                                repeatForever: true,
+                                animatedTexts:[
+                                FlickerAnimatedText(
+                                    character.location!.name!)],
+                            )
+                        ),
+                      ),
                     ],
                 ),
           ),

@@ -38,6 +38,7 @@ dependencies:
   dio: ^5.9.0
   flutter_offline: ^6.0.0
   lottie: ^3.3.2
+  animated_text_kit: ^4.3.0
 
 dev_dependencies:
   flutter_test:

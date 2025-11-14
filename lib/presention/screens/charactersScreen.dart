@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 import 'package:learn_bloc/bussiess_logic/cubit/character_cubit.dart';
 import 'package:learn_bloc/constant/colors.dart';
 import '../../data/models/character.dart';
@@ -131,6 +132,30 @@ class _CharactersScreenState extends State<CharactersScreen> {
     );
   }
 
+  Widget buildNoInternet(){
+    return   Center(
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Can\'t connect .. check internet',
+              style: TextStyle(
+                fontSize: 22,
+                color: MyColors.myGrey,
+              ),
+            ),
+            Image.asset('assets/images/no_internet.png')
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -160,7 +185,25 @@ class _CharactersScreenState extends State<CharactersScreen> {
         backgroundColor: MyColors.myYellow,
         actions: buildAppbarAction(),
       ),
-      body: buildBlockWidget(),
+      body: OfflineBuilder(
+          connectivityBuilder: (
+              BuildContext context,
+              List<ConnectivityResult> connectivity,
+              Widget child,
+              ) {
+            final bool connected = !connectivity.contains(ConnectivityResult.none);
+            if(connected){
+              return  buildBlockWidget();
+            }
+            else{
+              return buildNoInternet();
+            }
+
+          },
+        child: Center(
+          child: CircularProgressIndicator(color: MyColors.myYellow),
+        ),
+    )
     );
   }
 }
