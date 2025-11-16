@@ -1,37 +1,18 @@
-# learn_bloc
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-# 🚀 Learn BLoC - Flutter Project
-
 ## 📸 Screenshots
 
-### Home Screen
-![Home Screen](screenShots/photo_5823365038335527731_y.jpg)
+<div align="center">
 
-### search details
-![search screen ](screenShots/photo_5823365038335527732_y.jpg)
+### Main Application Flow
+<div>
+  <img src="screenShots/photo_5823365038335527731_y.jpg" width="180" height="400" style="margin: 10px;">
+  <img src="screenShots/photo_5823365038335527732_y.jpg" width="180" height="400" style="margin: 10px;">
+  <img src="screenShots/photo_5823365038335527734_y.jpg" width="180" height="400" style="margin: 10px;">
+</div>
 
-### character details
-![character details](screenShots/photo_5823365038335527734_y.jpg)
+### Additional States
+<div>
+  <img src="screenShots/photo_5823365038335527736_y.jpg" width="180" height="400" style="margin: 10px;">
+  <img src="screenShots/photo_5823365038335527737_y.jpg" width="180" height="400" style="margin: 10px;">
+</div>
 
-### character details2
-![character details2](screenShots/photo_5823365038335527736_y.jpg)
-
-### NoConnectInternet
-![NoConnectInternet](screenShots/photo_5823365038335527737_y.jpg)
-
-## 🛠️ Installation
-
-```bash
-flutter pub get
-flutter run
+</div>
